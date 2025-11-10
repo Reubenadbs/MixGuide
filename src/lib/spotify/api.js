@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { getToken } from "/getToken.js";
+import { getToken } from "/token.js";
 
 // Haal tracks uit een playlist (1 pagina van 100)
 async function getPlaylistTracks(playlistId, token) {
