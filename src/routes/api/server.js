@@ -1,5 +1,5 @@
-import { getToken } from '$lib/spotify/token.js';
-import { getPlaylistTracks, getAudioFeatures } from '$lib/spotify/api.js';
+import { getToken } from '$lib/server/token.js';
+import { getPlaylistTracks, getAudioFeatures } from '$lib/server/api.js';
 
 export async function GET({ url }) {
   const id = url.searchParams.get('id');
