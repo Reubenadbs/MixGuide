@@ -1,25 +1,27 @@
 import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from '$env/static/private';
 
 export async function getAppToken(fetch) {
-  const res = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization:
-        'Basic ' +
-        Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64')
-    },
-    body: new URLSearchParams({ grant_type: 'client_credentials' })
-  });
-
-  if (!res.ok) {
-    console.error('Token error:', res.status, await res.text());
-    return null;
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization:
+          'Basic ' +
+          Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64')
+      },
+      body: new URLSearchParams({ grant_type: 'client_credentials' })
+    });
+  
+    const text = await res.text();
+    console.log('🔑 Spotify token response:', text); // 👈 Add this line
+  
+    if (!res.ok) return null;
+  
+    const { access_token } = JSON.parse(text);
+    return access_token;
+    console.log('Access token:', access_token);
   }
-
-  const { access_token } = await res.json();
-  return access_token;
-}
+  
 
 export function shapeTracks(playlistJson) {
   const items = (playlistJson?.tracks?.items) || [];

@@ -4,12 +4,6 @@
     const data = await res.json();
     console.log('Playlist data:', data);
   }
-
-  async function checkTrack(id) {
-    const res = await fetch(`/api/track?id=${encodeURIComponent(id)}`);
-    const data = await res.json();
-    console.log('Track features:', data);
-  }
 </script>
 
 <h2>Test Spotify API</h2>
@@ -20,8 +14,10 @@
   <p>→ open console for playlist output</p>
 </div>
 
-<!-- Track test -->
-<div style="margin-top:1rem">
-  <input placeholder="track id" on:change={(e) => checkTrack(e.target.value)} />
-  <p>→ open console for track output</p>
-</div>
+<ul>
+  <h2>playlist: </h2>
+  <li>
+    <h2>track</h2>
+    <p>description</p>
+  </li>
+</ul>
