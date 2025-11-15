@@ -8,7 +8,7 @@ export async function GET({ url, fetch }) {
   const token = await getAppToken(fetch);
   if (!token) return json({ ok: false, message: 'Token error' });
 
-  const r = await fetch(`https://api.spotify.com/v1/playlists/${id}?market=NL`, {
+  const r = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
     headers: { Authorization: `Bearer ${token}` }
   });
 
@@ -19,6 +19,8 @@ export async function GET({ url, fetch }) {
 
   const playlist = await r.json();
   const tracks = shapeTracks(playlist);
+
+  console.log(tracks)
 
   return json({ ok: true, count: tracks.length, tracks });
 }

@@ -26,11 +26,12 @@ export async function getAppToken(fetch) {
 export function shapeTracks(playlistJson) {
   const items = (playlistJson?.tracks?.items) || [];
   return items
-    .map((it) => it?.track)
+    .map((item) => item?.track)
     .filter((t) => t && t.id && t.type === 'track' && !t.is_local)
     .map((t) => ({
       id: t.id,
       name: t.name,
-      artist: (t.artists || []).map((a) => a.name).join(', ')
+      artist: (t.artists || []).map((a) => a.name).join(', '),
+      popularity: t.popularity
     }));
 }
