@@ -13,7 +13,7 @@ export async function getAppToken(fetch) {
     });
   
     const text = await res.text();
-    console.log('🔑 Spotify token response:', text); // 👈 Add this line
+    console.log('Spotify token response:', text); 
   
     if (!res.ok) return null;
   
@@ -24,14 +24,17 @@ export async function getAppToken(fetch) {
   
 
 export function shapeTracks(playlistJson) {
+  // ? Om ervoor te zorgen dat de functie niet opgeeft bij een undefined
   const items = (playlistJson?.tracks?.items) || [];
   return items
+  //  De resopnse json in het juiste formaat brengen en undefined voorkomen
     .map((item) => item?.track)
     .filter((t) => t && t.id && t.type === 'track' && !t.is_local)
     .map((t) => ({
       id: t.id,
       name: t.name,
       artist: (t.artists || []).map((a) => a.name).join(', '),
-      popularity: t.popularity
+      popularity: t.popularity,
+      cover: t.album.images[0].url,
     }));
 }

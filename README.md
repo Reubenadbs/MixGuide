@@ -23,3 +23,7 @@ Origineel wilde ik hier een track matching programma van maken maar dit mocht ni
 Tijdens het ophalen van de data uit de API van spotify liep ik tegen een probleem aan, dit probleem was dat tijdens het ophalen van de lijst van audiofeatures van bepaalde tracks, ik een foutmelding kreeg. De fout klonk als volgt: Fout: data.audio_features is not iterable (cannot read property undefined). 
 
 Na heel lang proberen de errors te fixen bleef ik maar vastzitten op 1 bepaalde error, deze error was de 403 die betekent dat ik geen toegang heb tot de endpoint. Dus zal ik of verdere toegang moeten aanvragen of zal ik een andere api moeten zoeken die bpm key etc kan gebruiken en dan die matchen met de tracks die komen uit de playlist endpoint.
+
+Uitendelijk heb ik een nieuwe API gevonden, deze heet RapidAPI, na het testen van de gratis versie heb ik gekozen om een tientje te betalen voor deze maand zodat ik zoveel requests als ik wil kan doen.
+
+Omdat ik voor de tracks maar 1 keer per seconde de features kan aanvragen door de third party API hun rate limits, heb ik ervoor gekozen om mijn plan aan te passen. Je kan nu niet meer in 1 keer de hele playlist uploaden en visualiseren op een grid maar je kan nu zelf een playlist voor je set bouwen door steeds nieuwe tracks toe te voegen aan een lijstje. Vervolgens kan je dat lijstje ordenen op volgorde van bijvoorbeeld bpm, toonsoort, bijvoorbeeld danceability en genre.

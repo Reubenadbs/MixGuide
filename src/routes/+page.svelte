@@ -1,71 +1,89 @@
 <script>
-	import { timeMinute } from "d3";
+  import '../style.css'
+  import PlaylistControls from '../components/PlaylistControls.svelte'
+  import TrackList from '../components/TrackList.svelte'
+  import PlaylistTracks from '../components/PlaylistTracks.svelte'
 
-  let playlistId = "";
+  let playlistId = ''
+  let tracks = []
+  let loadedTracks = []
 
-  // Lege array's maken voor de tracks
-  let tracks = [];
-  let selected = [];
+  // Reactive lijst met alleen de IDs van set
+  $: loadedIds = loadedTracks.map((t) => t.id)
 
-  // Uitkomst uit de input box sturen naar /api/playlist/+server.js
+  // Haalt een Spotify playlist op op basis van het ingevoerde playlist-id
   async function getPlaylist(id) {
-    const res = await fetch(`/api/playlist?id=${encodeURIComponent(id)}`);
-    const data = await res.json();
-    console.log('Playlist data:', data);
-    tracks = Array.isArray(data.tracks) ? data.tracks : [];  // De geladen tracks in de array zetten
-    selected = []; // Selectie resetten bij het herladen
+
+    // API-call naar eigen endpoint dat Spotify-data ophaalt
+    const res = await fetch(`/api/playlist?id=${encodeURIComponent(id)}`)
+    const data = await res.json()
+
+    // Iedere keer dat je een nieuwe playlist laadt → begin met lege set
+    loadedTracks = []
+
+    console.log('Playlist data:', data)
+
+    // Check of data.tracks bestaat en een array is, anders lege lijst
+    tracks = Array.isArray(data.tracks) ? data.tracks : []
   }
 
-  async function sendTrack(trackId){
-    try {
-      const res = await fetch(`/api/features?id=${encodeURIComponent(trackId)}`);
-      const data = await res.json;
-      console.log('RapidAPI features for track', trackId, data);
+  // Haalt audio-features op van één track en combineert die met Spotify metadata
+  async function loadTrack(trackId) {
+    console.log('clicked load for', trackId)
 
-    } catch{
-      console.error('Error loading track from RapidAPI', err);
+    try {
+      // API-call naar RapidAPI om audio-features voor deze track op te halen
+      const res = await fetch(`/api/features?id=${encodeURIComponent(trackId)}`)
+      const data = await res.json()
+
+      console.log('response status:', res.status)
+      console.log('data status', data.status)
+
+      // Metadata van deze track opzoeken in de Spotify-lijst
+      const meta = tracks.find((t) => t.id === trackId)
+
+      // Alleen doorgaan als RapidAPI niet een 429 status teruggeeft
+      if (data.status !== 429 && 504) {
+
+        // Combineert Spotify-informatie met de feature-data van RapidAPI
+        const combinedData = {
+          ...data,
+          id: trackId,
+          name: meta?.name,
+          artist: meta?.artist,
+          popularity: meta?.popularity,
+          cover: meta?.cover
+        }
+
+        // Nieuw array maken zodat Svelte reactiviteit triggert
+        loadedTracks = [...loadedTracks, combinedData]
+
+        console.log('RapidAPI data for track', trackId, combinedData)
+        console.log('Loaded tracks:', loadedTracks)
+      }
+    } catch (err) {
+
+      // Error bij API-call of netwerk
+      console.error('Error in loadTrack', err)
     }
   }
-  </script>
+</script>
 
-<h2>Test Spotify API</h2>
+<div class="page">
+  <h2>Spotify DJ set builder</h2>
 
-<!-- Playlist test -->
-<form on:submit|preventDefault={() => getPlaylist(playlistId)}>
-  <input
-    placeholder="playlist id"
-    bind:value={playlistId}
+  <PlaylistControls
+    {playlistId}
+    onPlaylistIdChange={(value) => (playlistId = value)}
+    onLoad={getPlaylist}
   />
-  <button type="submit">Load</button>
-</form>
 
-{#if tracks.length === 0}
-<p>→ Load a playlist to see tracks</p>
-{:else}
-<h3>Tracks ({tracks.length})</h3>
-
-<ul style="list-style:none; padding:0; margin:0;">
-  {#each tracks as t}
-    <li
-      style="
-        display:flex;
-        align-items:center;
-        gap:.5rem;
-        padding:.4rem 0;
-        border-bottom:1px solid #eee;
-      "
-    >
-      <div style="flex:1;">
-        <div style="font-weight:600;">{t.name}</div>
-        <div style="font-size:.9rem; opacity:.8;">{t.artist}</div>
-        <div style="font-size:.85rem; opacity:.7;">Popularity: {t.popularity}</div>
-      </div>
-
-      <!-- 3️⃣ The new per-track load button -->
-      <button type="button" on:click={() => sendTrack(t.id)}>
-        Load
-      </button>
-    </li>
-  {/each}
-</ul>
-{/if}
+  <div class="columns">
+    <TrackList
+      {tracks}
+      {loadedIds}
+      onLoadTrack={loadTrack}
+    />
+    <PlaylistTracks {loadedTracks} />
+  </div>
+</div>
