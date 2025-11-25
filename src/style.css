@@ -1,17 +1,24 @@
+html{
+    background-color: #5f9547;
+}
 h2 {
-font-size: 1.8rem;
-margin-bottom: 1rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 h3 {
-font-size: 1.2rem;
-margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
 }
 
 ul{
     list-style: none;
     padding: 0;
     margin: 0;
+    max-height: 1000px;
+    overflow-y: auto;
+    padding-right: 1rem;
 }
 
 ul li{
@@ -28,21 +35,27 @@ div{
 
 /* basispagina */
 .page {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 1.5rem;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: #111827;
+    color: #000000;
   }
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 1.5rem; 
+    margin-top: 1.5rem;
+  } 
   
-  /* formulier bovenaan */
-  .controls {
+/* formulier bovenaan */
+.controls {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
   
-  .playlist-input {
+.playlist-input {
     flex: 1;
     padding: 0.6rem 0.75rem;
     border-radius: 0.5rem;
@@ -50,15 +63,15 @@ div{
     font-size: 0.95rem;
   }
   
-  .playlist-input:focus {
+.playlist-input:focus {
     outline: none;
     border-color: #2563eb;
     box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
   }
   
   /* knoppen */
-  .primary-btn,
-  .secondary-btn {
+.primary-btn,
+.secondary-btn {
     padding: 0.5rem 0.9rem;
     border-radius: 999px;
     font-size: 0.9rem;
@@ -68,41 +81,41 @@ div{
   }
   
   /* hoofdknop (load playlist) */
-  .primary-btn {
+.primary-btn {
     background-color: #2563eb;
     color: #ffffff;
     box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
   }
   
-  .primary-btn:hover {
+.primary-btn:hover {
     background-color: #1d4ed8;
     transform: translateY(-1px);
   }
   
-  .primary-btn:active {
+.primary-btn:active {
     transform: translateY(0);
     box-shadow: 0 1px 3px rgba(37, 99, 235, 0.4);
   }
   
   /* load-knoppen per track */
-  .secondary-btn {
+.secondary-btn {
     background-color: #f3f4f6;
     color: #111827;
     border: 1px solid #e5e7eb;
   }
   
-  .secondary-btn:hover:not(:disabled) {
+.secondary-btn:hover:not(:disabled) {
     background-color: #e5e7eb;
   }
   
-  .secondary-btn:disabled {
+.secondary-btn:disabled {
     background-color: #e5e7eb;
     color: #9ca3af;
     cursor: default;
   }
   
   /* cards voor lijsten */
-  .card {
+.card {
     margin-top: 1rem;
     padding: 1rem 1.2rem;
     border-radius: 0.75rem;
@@ -111,18 +124,17 @@ div{
     box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
   }
   
-  .loaded-card {
+.loaded-card {
     margin-top: 1.5rem;
   }
   
   /* lijsten */
-  .track-list {
+.track-list {
     list-style: none;
-    padding: 0;
     margin: 0;
   }
   
-  .track-item {
+.track-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,46 +143,53 @@ div{
     border-bottom: 1px solid #f3f4f6;
   }
   
-  .track-item:last-of-type {
+.track-item:last-of-type {
     border-bottom: none;
   }
   
   /* tracktekst */
-  .track-info {
+.track-info {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
   }
   
-  .track-title {
+.track-title {
     font-weight: 600;
     font-size: 0.95rem;
   }
   
-  .track-artist {
+.track-artist {
     font-size: 0.9rem;
     opacity: 0.8;
   }
   
-  .track-meta {
+.track-meta {
     font-size: 0.85rem;
     opacity: 0.75;
   }
 
-  .track-cover {
+.track-cover {
     width: 50px;
     height: 50px;
   }
   
   /* hints/tekst */
-  .hint {
+.hint {
     margin-top: 1rem;
     font-size: 0.9rem;
     color: #6b7280;
   }
-  .columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 gelijke kolommen */
-    gap: 1.5rem;                    /* ruimte tussen de kolommen */
-    margin-top: 1.5rem;
-  } 
+
+.tooltip{
+    position: absolute;
+    pointer-events: none;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }

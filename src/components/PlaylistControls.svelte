@@ -1,12 +1,9 @@
 <script>
-    // Props van de parent
     export let playlistId = ''
     export let onPlaylistIdChange = () => {}
     export let onLoad = () => {}
   
-    // Handler voor submit
     function handleSubmit() {
-      // Parent-functie aanroepen met huidige playlistId
       onLoad(playlistId)
     }
 </script>

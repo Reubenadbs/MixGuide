@@ -3,49 +3,50 @@
   import PlaylistControls from '../components/PlaylistControls.svelte'
   import TrackList from '../components/TrackList.svelte'
   import PlaylistTracks from '../components/PlaylistTracks.svelte'
+  import KeyBpmPlot from '../components/KeyBpmPlot.svelte'
+  import MoodMap from '../components/MoodMap.svelte'
 
   let playlistId = ''
   let tracks = []
   let loadedTracks = []
 
-  // Reactive lijst met alleen de IDs van set
+  // Lijst van ID's maken en geupdate houden
   $: loadedIds = loadedTracks.map((t) => t.id)
 
-  // Haalt een Spotify playlist op op basis van het ingevoerde playlist-id
+  // Functie voor het ophalen van playlist van spotify api
   async function getPlaylist(id) {
 
-    // API-call naar eigen endpoint dat Spotify-data ophaalt
+    // Api call naar spotify
     const res = await fetch(`/api/playlist?id=${encodeURIComponent(id)}`)
     const data = await res.json()
 
-    // Iedere keer dat je een nieuwe playlist laadt → begin met lege set
     loadedTracks = []
 
     console.log('Playlist data:', data)
 
-    // Check of data.tracks bestaat en een array is, anders lege lijst
+    // Alles in array zetten (als het geen array is dan lege array)
     tracks = Array.isArray(data.tracks) ? data.tracks : []
   }
 
-  // Haalt audio-features op van één track en combineert die met Spotify metadata
+  // Functie voor het laden van een track
   async function loadTrack(trackId) {
     console.log('clicked load for', trackId)
 
     try {
-      // API-call naar RapidAPI om audio-features voor deze track op te halen
+      // Api call naar rapidapi
       const res = await fetch(`/api/features?id=${encodeURIComponent(trackId)}`)
       const data = await res.json()
 
       console.log('response status:', res.status)
       console.log('data status', data.status)
 
-      // Metadata van deze track opzoeken in de Spotify-lijst
+      // Metadata van track uit spotify lijst halen
       const meta = tracks.find((t) => t.id === trackId)
 
-      // Alleen doorgaan als RapidAPI niet een 429 status teruggeeft
+      // Als het geen error geeft (te kleine interval tussen requests) doorgaan
       if (data.status !== 429 && 504) {
 
-        // Combineert Spotify-informatie met de feature-data van RapidAPI
+        // Combineert beide api's hun data in 1 lijst
         const combinedData = {
           ...data,
           id: trackId,
@@ -55,7 +56,7 @@
           cover: meta?.cover
         }
 
-        // Nieuw array maken zodat Svelte reactiviteit triggert
+        // Nieuw array maken om een refresh te triggeren bij loadedId's
         loadedTracks = [...loadedTracks, combinedData]
 
         console.log('RapidAPI data for track', trackId, combinedData)
@@ -82,8 +83,14 @@
     <TrackList
       {tracks}
       {loadedIds}
-      onLoadTrack={loadTrack}
-    />
+      onLoadTrack={loadTrack}/>
+
     <PlaylistTracks {loadedTracks} />
+
+    <section class="card">
+      <KeyBpmPlot {loadedTracks} />
+      <MoodMap {loadedTracks}/> 
+    </section>
+    
   </div>
 </div>
