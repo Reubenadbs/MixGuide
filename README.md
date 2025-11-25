@@ -27,3 +27,6 @@ Na heel lang proberen de errors te fixen bleef ik maar vastzitten op 1 bepaalde 
 Uitendelijk heb ik een nieuwe API gevonden, deze heet RapidAPI, na het testen van de gratis versie heb ik gekozen om een tientje te betalen voor deze maand zodat ik zoveel requests als ik wil kan doen.
 
 Omdat ik voor de tracks maar 1 keer per seconde de features kan aanvragen door de third party API hun rate limits, heb ik ervoor gekozen om mijn plan aan te passen. Je kan nu niet meer in 1 keer de hele playlist uploaden en visualiseren op een grid maar je kan nu zelf een playlist voor je set bouwen door steeds nieuwe tracks toe te voegen aan een lijstje. Vervolgens kan je dat lijstje ordenen op volgorde van bijvoorbeeld bpm, toonsoort, bijvoorbeeld danceability en genre.
+
+De RapidAPI blijkt een key en een camelot te geven, na wat onderzoek blijkt dat de meeste DJ software in camelot werkt, ook vinden meeste DJ's dit fijner.
+

@@ -25,7 +25,7 @@
                 class="secondary-btn"
                 type="button"
                 disabled={loadedIds.includes(t.id)}
-                on:click={() => onLoadTrack(t.id)}
+                on:click={() => onLoadTrack(t.id) }
             >
                 {#if loadedIds.includes(t.id)}
                 Loaded

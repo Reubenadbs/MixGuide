@@ -88,9 +88,10 @@
     <PlaylistTracks {loadedTracks} />
 
     <section class="card">
+      
       <KeyBpmPlot {loadedTracks} />
       <MoodMap {loadedTracks}/> 
     </section>
-    
+
   </div>
 </div>

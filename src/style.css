@@ -80,7 +80,7 @@ div{
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
   }
   
-  /* hoofdknop (load playlist) */
+  /* hoofdknop */
 .primary-btn {
     background-color: #2563eb;
     color: #ffffff;
@@ -124,9 +124,7 @@ div{
     box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
   }
   
-.loaded-card {
-    margin-top: 1.5rem;
-  }
+
   
   /* lijsten */
 .track-list {
@@ -174,7 +172,7 @@ div{
     height: 50px;
   }
   
-  /* hints/tekst */
+  /* hints */
 .hint {
     margin-top: 1rem;
     font-size: 0.9rem;

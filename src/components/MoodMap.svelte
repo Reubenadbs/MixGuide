@@ -172,5 +172,6 @@
     $: if (loadedTracks.length > 0) { draw() };
 
 </script>
+    <h2>MoodMap</h2>
     <svg bind:this={svgEl} width="600" height="400"></svg>
     <div bind:this={tooltipEl} class="tooltip"></div>
