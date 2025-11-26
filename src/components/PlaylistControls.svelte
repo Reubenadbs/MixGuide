@@ -1,9 +1,8 @@
 <script>
     export let playlistId = ''
-    export let onPlaylistIdChange = () => {}
     export let onLoad = () => {}
 
-    // Functie aanmaken voor het aanroepen van 
+    // Formulier submit handler
     function handleSubmit() {
       onLoad(playlistId)
     }
@@ -13,9 +12,9 @@
   <input
     class="playlist-input"
     placeholder="Insert playlist id"
-    value={playlistId}
-    on:input={(e) => onPlaylistIdChange(e.target.value)}
+    bind:value={playlistId}
   />
+
   <button class="primary-btn" type="submit">Load playlist</button>
 </form>
   

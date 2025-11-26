@@ -37,7 +37,6 @@ export async function GET({ url, fetch }) {
 
   const tracks = shapeTracks(fullPlaylist);
 
-
   console.log(tracks)
 
   return json({ ok: true, count: tracks.length, tracks });

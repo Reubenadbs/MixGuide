@@ -1,5 +1,4 @@
 <script>
-    // Props van de parent
     export let tracks = []
     export let loadedIds = []
     export let onLoadTrack = () => {}
@@ -21,12 +20,12 @@
                 <div class="track-meta">Popularity: {t.popularity}</div>
             </div>
 
-            <button
-                class="secondary-btn"
-                type="button"
+                <button
+                class="secondary-btn" 
+                type="button" 
                 disabled={loadedIds.includes(t.id)}
                 on:click={() => onLoadTrack(t.id) }
-            >
+                >
                 {#if loadedIds.includes(t.id)}
                 Loaded
                 {:else}

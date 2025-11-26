@@ -13,18 +13,16 @@ export async function getAppToken(fetch) {
     });
   
     const text = await res.text();
-    console.log('Spotify token response:', text); 
   
     if (!res.ok) return null;
   
     const { access_token } = JSON.parse(text);
     return access_token;
-    console.log('Access token:', access_token);
   }
   
 
 export function shapeTracks(playlistJson) {
-  // ? Om ervoor te zorgen dat de functie niet opgeeft bij een undefined
+  // Om ervoor te zorgen dat de functie niet opgeeft bij een undefined
   const items = (playlistJson?.tracks?.items) || [];
   return items
   //  De resopnse json in het juiste formaat brengen en undefined voorkomen

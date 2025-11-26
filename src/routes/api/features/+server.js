@@ -42,7 +42,6 @@ export async function GET({ url }) {
 
     return json(data);
   } catch (err) {
-    console.error('server: fetch error', err);
     return json({ error: 'Server error calling RapidAPI' }, { status: 500 });
   }
 }
