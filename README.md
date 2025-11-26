@@ -31,7 +31,7 @@ De RapidAPI blijkt een key en een camelot te geven, na wat onderzoek blijkt dat 
 
 ### Gebruik
 Voor het gebruik van de app moet de gebruiker een playlist invoeren aan de hand van de ID ervan, voorbeeld:  Link is: https://open.spotify.com/playlist/5q8N2QkptpinDjOblDAMbU?si=d23bf850b41049f4 
-Dan is de ID: 5q8N2QkptpinDjOblDAMbU (alles tussen / en ?.
+Dan is de ID: 5q8N2QkptpinDjOblDAMbU (alles tussen / en ?)
 
 Vervolgens kan de gebruiker de playlist inladen en kan deze bepaalde tracks kiezen om verdere info van te krijgen en in de visualisaties te plaatsen. Om opnieuw te beginnen gewoon refreshen.
 
